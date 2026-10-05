@@ -6,6 +6,17 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="12">
+            <!-- Boutons thème et effacer en haut -->
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Basculer Thème" 
+                        Command="{Binding BasculerThemeCommand}"
+                        HorizontalOptions="FillAndExpand"/>
+                <Button Text="Effacer" 
+                        Command="{Binding EffacerCommand}"
+                        HorizontalOptions="FillAndExpand"/>
+            </HorizontalStackLayout>
+
+            <!-- Formulaire principal -->
             <Label Text="Nom" FontSize="16"/>
             <Entry Text="{Binding Nom, Mode=TwoWay}"
                    Placeholder="Votre nom"/>
@@ -13,8 +24,30 @@
             <DatePicker Date="{Binding DateNaissance, Mode=TwoWay}"/>
             <Button Text="Calculer"
                     Command="{Binding CalculerCommand}"/>
+
+            <!-- Résultat et jours restants -->
             <Label Text="{Binding Resultat}" FontSize="20"
                    IsVisible="{Binding ResultatVisible}"/>
+            <Label Text="{Binding JoursRestants}" FontSize="16"
+                   IsVisible="{Binding ResultatVisible}"/>
+
+            <!-- Historique -->
+            <Label Text="Historique des calculs" FontSize="16" FontAttributes="Bold"
+                   IsVisible="{Binding Historique.Count}"/>
+            <CollectionView ItemsSource="{Binding Historique}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10" Spacing="5" BackgroundColor="#f0f0f0">
+                            <Label Text="{Binding .}" FontSize="14"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Bouton vider l'historique -->
+            <Button Text="Vider l'historique" 
+                    Command="{Binding ViderHistoriqueCommand}"
+                    IsVisible="{Binding Historique.Count}"/>
         </VerticalStackLayout>
     </ScrollView>
 
